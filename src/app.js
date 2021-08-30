@@ -1,12 +1,17 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import { openDb } from "./db";
+import todoRouter from "./route/todo";
 
 const app = express();
 
+openDb();
 app.use(cors({ origin: true, credentials: true }));
 app.use(morgan("common"));
 app.use(express.json());
+
+app.use("/todo", todoRouter);
 
 app.get("*", (req, res) => {
   res.send("not found");
