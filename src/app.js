@@ -8,7 +8,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(morgan("common"));
 app.use(express.json());
 
-app.get("*", (req: any, res: any) => {
+app.get("*", (req, res) => {
   res.send("not found");
 });
 
@@ -18,5 +18,5 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(8080, () => {
-  console.log("Running...");
+  console.log("Running... port 8080");
 });
