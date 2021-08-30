@@ -1,0 +1,21 @@
+{
+  "name": "todo_list_server",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/rockpell/TodoListServer.git",
+  "author": "rockpell <aythffk@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./gen/route/app.js",
+    "dev": "tsc -w & nodemon ./gen/app.js"
+  },
+  "dependencies": {
+    "@types/node": "^16.7.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
