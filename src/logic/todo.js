@@ -1,6 +1,10 @@
-import { getAllTodo } from "../db";
+import * as db from "../db";
+
+export const createTodo = async (content) => {
+  db.createTodo(content);
+};
 
 export const getTodoList = async () => {
-  const todoList = getAllTodo();
+  const todoList = db.getAllTodo();
   return todoList;
 };

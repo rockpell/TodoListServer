@@ -15,7 +15,7 @@ export async function openDb() {
   await db.exec("DROP TABLE todo");
 
   await db.exec(
-    "CREATE TABLE IF NOT EXISTS todo (id INT, content TEXT, is_check BOOLEAN, created_at TEXT)"
+    "CREATE TABLE todo (id INT, content TEXT, is_check BOOLEAN, created_at TEXT)"
   );
 
   await createTodo("aa", false, "2021-05-26T11:51:05.097Z");

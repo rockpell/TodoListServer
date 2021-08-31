@@ -8,6 +8,7 @@ export const createTodo = async (
   createdAt = new Date().toDateString()
 ) => {
   const db = await openDb();
+
   await db.run(
     "INSERT INTO todo VALUES (?, ?, ?, ?)",
     todoId++,
