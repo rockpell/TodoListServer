@@ -1,4 +1,4 @@
 import openDb from "./core";
-import { createTodo, getAllTodo, deleteTodo } from "./todoDB";
+import { createTodo, getAllTodo, editTodo, deleteTodo } from "./todoDB";
 
-export { openDb, createTodo, getAllTodo, deleteTodo };
+export { openDb, createTodo, getAllTodo, editTodo, deleteTodo };

@@ -24,6 +24,7 @@ router.get("/", async (req, res) => {
   res.status(200).json({ count: todoList.length, todoList: todoList });
 });
 
+// 두개의 동작을 하는 api이지만 요구사항으로 인해 이렇게 구현
 // todo 내용 수정
 // req content: string
 // res msg: string, content: string
@@ -32,11 +33,19 @@ router.get("/", async (req, res) => {
 // req isCheck: boolean
 // res ms: string
 router.post("/:id", async (req, res) => {
-  // 수정
-  res.status(200).json({ msg: "", content: "" });
+  try {
+    const { id } = req.params;
+    const { content, isCheck } = req.body;
 
-  // 체크
-  res.status(200).json({ msg: "" });
+    const isEdit = await todoLogic.editTodo(id, content, isCheck);
+
+    if (!isEdit) throw { msg: "수정 실패" };
+
+    res.status(200).json({ msg: "수정 성공", content: content });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: err?.msg });
+  }
 });
 
 router.delete("/:id", async (req, res) => {
@@ -45,7 +54,7 @@ router.delete("/:id", async (req, res) => {
 
     const isDelete = await todoLogic.deleteTodo(id);
 
-    if (!isDelete) throw { msg: "존재하지 않는 id" };
+    if (!isDelete) throw { msg: "삭제 실패" };
 
     res.status(200).json({ msg: "삭제 성공" });
   } catch (err) {

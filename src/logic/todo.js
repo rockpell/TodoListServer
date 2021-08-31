@@ -12,3 +12,7 @@ export const getTodoList = async () => {
 export const deleteTodo = async (id) => {
   return db.deleteTodo(id);
 };
+
+export const editTodo = async (id, content, isCheck) => {
+  return db.editTodo(id, content, isCheck);
+};
