@@ -12,11 +12,11 @@ export async function openDb() {
 (async () => {
   const db = await openDb();
 
-  await db.exec(
-    "CREATE TABLE IF NOT EXISTS todo (id INT, content TEXT, is_check BOOLEAN, created_at TEXT)"
+  db.exec(
+    "CREATE TABLE IF NOT EXISTS todo (id INT, content TEXT, is_check BOOLEAN, created_at TEXT, updated_at TEXT)"
   );
 
-  await createTodo("aa", false, "2021-05-26T11:51:05.097Z");
+  await createTodo("aa");
 })();
 
 export default openDb;
