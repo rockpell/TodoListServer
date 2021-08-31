@@ -25,3 +25,16 @@ export const getAllTodo = async () => {
 
   return todos;
 };
+
+export const deleteTodo = async (id) => {
+  const db = await openDb();
+
+  const todo = await db.get("SELECT id from todo WHERE id = ?", id);
+
+  if (todo) {
+    await db.run("DELETE FROM todo where id = ?", id);
+    return true;
+  } else {
+    return false;
+  }
+};

@@ -1,5 +1,5 @@
 import express from "express";
-import { createTodo, getTodoList } from "../logic/todo";
+import * as todoLogic from "../logic/todo";
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
   try {
     const { content } = req.body;
 
-    await createTodo(content);
+    await todoLogic.createTodo(content);
     res.status(200).json({ msg: "생성 성공" });
   } catch (err) {
     res.status(500).json({ msg: "생성 실패" });
@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
 
 // todo 리스트 불러오기
 router.get("/", async (req, res) => {
-  const todoList = await getTodoList();
+  const todoList = await todoLogic.getTodoList();
 
   res.status(200).json({ count: todoList.length, todoList: todoList });
 });
@@ -40,7 +40,17 @@ router.post("/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  res.status(200).json({ msg: "" });
+  try {
+    const { id } = req.params;
+
+    const isDelete = await todoLogic.deleteTodo(id);
+
+    if (!isDelete) throw { msg: "존재하지 않는 id" };
+
+    res.status(200).json({ msg: "삭제 성공" });
+  } catch (err) {
+    res.status(500).json({ msg: err?.msg });
+  }
 });
 
 export default router;
