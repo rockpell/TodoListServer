@@ -22,6 +22,8 @@ app.use(function (err, req, res, next) {
   res.status(500).send("server error!");
 });
 
-app.listen(8080, () => {
-  console.log("Running... port 8080");
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Running... port ${port}`);
 });
