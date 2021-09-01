@@ -54,11 +54,11 @@ router.delete("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const isDelete = await todoLogic.deleteTodo(id);
+    const todo = await todoLogic.deleteTodo(id);
 
-    if (!isDelete) throw { msg: "삭제 실패" };
+    if (!todo) throw { msg: "삭제 실패" };
 
-    res.status(200).json({ msg: "삭제 성공" });
+    res.status(200).json({ msg: "삭제 성공", todo });
   } catch (err) {
     console.error(err);
     next({ ...err, msg: err?.msg });

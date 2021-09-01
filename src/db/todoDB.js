@@ -79,10 +79,10 @@ export const deleteTodo = async (id) => {
       await db.run("DELETE FROM todo where id = ?", id);
     } catch (err) {
       console.error(err);
-      return false;
+      return null;
     }
-    return true;
+    return todo;
   } else {
-    return false;
+    return null;
   }
 };
