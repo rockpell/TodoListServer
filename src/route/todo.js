@@ -10,8 +10,8 @@ router.post("/", async (req, res, next) => {
   try {
     const { content } = req.body;
 
-    await todoLogic.createTodo(content);
-    res.status(200).json({ msg: "생성 성공" });
+    const todo = await todoLogic.createTodo(content);
+    res.status(200).json({ msg: "생성 성공", todo });
   } catch (err) {
     console.error(err);
     next({ ...err, msg: "생성 실패" });
@@ -39,10 +39,11 @@ router.post("/:id", async (req, res, next) => {
     const { content, isCheck } = req.body;
 
     const isEdit = await todoLogic.editTodo(id, content, isCheck);
+    const todo = await todoLogic.getTodo(id);
 
     if (!isEdit) throw { msg: "수정 실패" };
 
-    res.status(200).json({ msg: "수정 성공", content: content });
+    res.status(200).json({ msg: "수정 성공", todo });
   } catch (err) {
     console.error(err);
     next({ ...err, msg: err?.msg });

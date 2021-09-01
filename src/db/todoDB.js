@@ -18,11 +18,12 @@ export const createTodo = async (
     createdAt,
     updatedAt
   );
+  return { id: todoId - 1, content, createdAt };
 };
 
 export const getTodo = async (id) => {
   const db = await openDB();
-  const todo = await db.get("SELECT id from todo WHERE id = ?", id);
+  const todo = await db.get("SELECT * from todo WHERE id = ?", id);
 
   return todo;
 };
@@ -71,7 +72,7 @@ export const editTodo = async (id, content, isCheck) => {
 export const deleteTodo = async (id) => {
   const db = await openDB();
 
-  const todo = await getTodo();
+  const todo = await getTodo(id);
 
   if (todo) {
     try {
