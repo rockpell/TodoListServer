@@ -6,14 +6,15 @@ const router = express.Router();
 // todo 생성
 // req content: string
 // res msg: string
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
   try {
     const { content } = req.body;
 
     await todoLogic.createTodo(content);
     res.status(200).json({ msg: "생성 성공" });
   } catch (err) {
-    res.status(500).json({ msg: "생성 실패" });
+    console.error(err);
+    next({ ...err, msg: "생성 실패" });
   }
 });
 
@@ -32,7 +33,7 @@ router.get("/", async (req, res) => {
 // todo 체크
 // req isCheck: boolean
 // res ms: string
-router.post("/:id", async (req, res) => {
+router.post("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const { content, isCheck } = req.body;
@@ -44,11 +45,11 @@ router.post("/:id", async (req, res) => {
     res.status(200).json({ msg: "수정 성공", content: content });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: err?.msg });
+    next({ ...err, msg: err?.msg });
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -58,7 +59,8 @@ router.delete("/:id", async (req, res) => {
 
     res.status(200).json({ msg: "삭제 성공" });
   } catch (err) {
-    res.status(500).json({ msg: err?.msg });
+    console.error(err);
+    next({ ...err, msg: err?.msg });
   }
 });
 

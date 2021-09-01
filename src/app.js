@@ -18,8 +18,8 @@ app.get("*", (req, res) => {
 });
 
 app.use(function (err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send("server error!");
+  console.error(err?.stack);
+  res.status(500).json({ msg: err?.msg });
 });
 
 const port = process.env.PORT || 8080;
