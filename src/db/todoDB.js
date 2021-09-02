@@ -45,19 +45,22 @@ export const editTodo = async (id, content, isCheck) => {
   const whereQuery = "WHERE id = ?";
   let setQuery = "SET updated_at = ?, ";
 
-  if (content && isCheck) setQuery += "content = ?, is_check = ?";
+  if (content && isCheck != undefined) setQuery += "content = ?, is_check = ?";
   else if (content) setQuery += "content = ?";
-  else if (isCheck) setQuery += "is_check = ?";
+  else if (isCheck != undefined) setQuery += "is_check = ?";
 
   if (todo) {
     const query = updateQuery + setQuery + whereQuery;
     const nowTime = new Date().toISOString();
 
     try {
-      if (content && isCheck)
-        await db.run(query, nowTime, content, isCheck, id);
+      const newIsCheck = isCheck ? 1 : 0;
+
+      if (content && isCheck != undefined)
+        await db.run(query, nowTime, content, newIsCheck, id);
       else if (content) await db.run(query, nowTime, content, id);
-      else if (isCheck) await db.run(query, nowTime, isCheck, id);
+      else if (isCheck != undefined)
+        await db.run(query, nowTime, newIsCheck, id);
     } catch (err) {
       console.error(err);
       return false;
