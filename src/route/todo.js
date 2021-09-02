@@ -38,6 +38,8 @@ router.post("/:id", async (req, res, next) => {
     const { id } = req.params;
     const { content, isCheck } = req.body;
 
+    console.log("req.body: ", req.body);
+
     const isEdit = await todoLogic.editTodo(id, content, isCheck);
     const todo = await todoLogic.getTodo(id);
 
