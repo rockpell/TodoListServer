@@ -40,7 +40,7 @@ describe('TodoService', () => {
   it('create todo test', async () => {
     const createTodoDto: CreateTodoDto = {
       content: 'init content',
-      isCheck: false,
+      is_check: false,
     };
     const todo = await service.create(createTodoDto);
 
