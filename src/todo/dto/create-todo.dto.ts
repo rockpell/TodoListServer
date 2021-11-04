@@ -1,4 +1,4 @@
 export class CreateTodoDto {
   content: string;
-  isCheck: boolean;
+  is_check: boolean;
 }

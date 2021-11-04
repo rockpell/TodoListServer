@@ -17,12 +17,16 @@ export class TodoController {
 
   @Post()
   async create(@Body() createTodoDto: CreateTodoDto) {
-    return await this.todoService.create(createTodoDto);
+    const todo = await this.todoService.create(createTodoDto);
+
+    return { msg: '생성 성공', todo };
   }
 
   @Get()
-  findAll() {
-    return this.todoService.findAll();
+  async findAll() {
+    const todoList = await this.todoService.findAll();
+
+    return { count: todoList.length, todoList: todoList };
   }
 
   @Get(':id')

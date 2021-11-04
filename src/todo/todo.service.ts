@@ -13,6 +13,7 @@ export class TodoService {
   ) {}
 
   async create(createTodoDto: CreateTodoDto): Promise<Todo> {
+    createTodoDto.is_check = false;
     return await this.todoRepository.save(createTodoDto);
   }
 
