@@ -17,6 +17,10 @@ export class TodoService {
     return await this.todoRepository.save(createTodoDto);
   }
 
+  async findOne(id: number): Promise<Todo> {
+    return await this.todoRepository.findOne(id);
+  }
+
   async findAll(): Promise<Todo[]> {
     return await this.todoRepository.find();
   }
@@ -32,7 +36,7 @@ export class TodoService {
     return todo;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} todo`;
+  async remove(id: number) {
+    await this.todoRepository.delete(id);
   }
 }

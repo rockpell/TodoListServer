@@ -29,7 +29,13 @@ export class TodoController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.todoService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const todo = await this.todoService.findOne(+id);
+    if (!todo) {
+      return { msg: '삭제 실패' };
+    }
+    await this.todoService.remove(+id);
+
+    return { msg: '삭제 성공', todo };
   }
 }
