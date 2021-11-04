@@ -21,12 +21,15 @@ export class TodoService {
     return await this.todoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} todo`;
+  async update(id: number, updateTodoDto: UpdateTodoDto): Promise<Todo> {
+    const todo = this.editTodo(id, updateTodoDto);
+    return todo;
   }
 
-  update(id: number, updateTodoDto: UpdateTodoDto) {
-    return `This action updates a #${id} todo`;
+  async editTodo(id: number, updateTodoDto: UpdateTodoDto): Promise<Todo> {
+    await this.todoRepository.update(id, updateTodoDto);
+    const todo = await this.todoRepository.findOne(id);
+    return todo;
   }
 
   remove(id: number) {

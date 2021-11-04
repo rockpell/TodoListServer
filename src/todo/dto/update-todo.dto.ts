@@ -1,3 +1,4 @@
 export class UpdateTodoDto {
-  isCheck: boolean;
+  content: string | null;
+  is_check: boolean | null;
 }
