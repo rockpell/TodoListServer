@@ -23,7 +23,9 @@ export class TodoController {
 
   @Post('/:id')
   update(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
-    return this.todoService.update(+id, updateTodoDto);
+    const todo = this.todoService.update(+id, updateTodoDto);
+
+    return { msg: '수정 성공', todo };
   }
 
   @Delete(':id')
